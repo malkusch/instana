@@ -1,7 +1,6 @@
 package de.malkusch.instanaassignment.infrastructure.linalg;
 
 import org.jblas.DoubleMatrix;
-import org.jblas.MatrixFunctions;
 
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 import de.malkusch.instanaassignment.model.linalg.Matrix;
@@ -18,9 +17,14 @@ public final class JblasLinearAlgebra implements LinearAlgebra {
 
     @Override
     public Matrix pow(Matrix matrix, int exponent) {
-        var jblasMatrix = (JblasMatrix) matrix;
-        var result = MatrixFunctions.pow(jblasMatrix.matrix(), exponent);
-        return new JblasMatrix(result);
+        if (exponent == 1) {
+            return matrix;
+        }
+        var result = matrix;
+        for (int i = 2; i <= exponent; i++) {
+            result = multiply(result, matrix);
+        }
+        return result;
     }
 
     @Override

@@ -34,5 +34,36 @@ public class LinearAlgebraTest {
         assertEquals(32, matrix.element(3, 2));
         assertEquals(33, matrix.element(3, 3));
     }
+    
+    @Test
+    public void testPow1() {
+        var matrix = linearAlgebra.matrix(2, 2);
+        matrix.set(1, 1, 1);
+        matrix.set(1, 2, 2);
+        matrix.set(2, 1, 3);
+        matrix.set(2, 2, 4);
+        
+        var result = linearAlgebra.pow(matrix, 1);
+        
+        assertEquals(matrix, result);
+    }
+    
+    @Test
+    public void testPow2() {
+        var matrix = linearAlgebra.matrix(2, 2);
+        matrix.set(1, 1, 1);
+        matrix.set(1, 2, 2);
+        matrix.set(2, 1, 3);
+        matrix.set(2, 2, 4);
+        
+        var result = linearAlgebra.pow(matrix, 2);
+        
+        var expected = linearAlgebra.matrix(2, 2);
+        expected.set(1, 1, 37);
+        expected.set(1, 2, 54);
+        expected.set(2, 1, 81);
+        expected.set(2, 2, 118);
+        assertEquals(expected, result);
+    }
 
 }

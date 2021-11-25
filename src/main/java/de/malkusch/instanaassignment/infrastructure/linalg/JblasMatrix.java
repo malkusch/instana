@@ -17,4 +17,16 @@ final record JblasMatrix(DoubleMatrix matrix) implements Matrix {
         // Potential floating point issues
         matrix.put(i - 1, j - 1, value);
     }
+
+    @Override
+    public String toString() {
+        var buffer = "";
+        for (int i = 1; i <= matrix.rows; i++) {
+            for (int j = 1; j <= matrix.columns; j++) {
+                buffer += element(i, j) + "\t";
+            }
+            buffer += "\n";
+        }
+        return buffer;
+    }
 }
