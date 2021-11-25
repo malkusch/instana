@@ -2,6 +2,7 @@ package de.malkusch.instanaassignment.model;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.stream;
+import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
@@ -67,7 +68,7 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
                 unweightedAdjacencyMatrix.set(i, j, 1);
             }
 
-            return new Graph(adjacencyMatrix, unweightedAdjacencyMatrix, serviceMap);
+            return new Graph(adjacencyMatrix, unweightedAdjacencyMatrix, unmodifiableMap(serviceMap));
         }
 
         public Graph parseCsv(String csv) {
