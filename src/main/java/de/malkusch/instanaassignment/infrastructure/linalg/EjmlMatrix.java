@@ -32,16 +32,6 @@ final record EjmlMatrix(SimpleMatrix matrix) implements Matrix {
         return buffer;
     }
 
-    private int[] rollout() {
-        int[] array = new int[matrix.numRows() * matrix.numCols()];
-        for (int i = 1; i <= matrix.numRows(); i++) {
-            for (int j = 1; j <= matrix.numCols(); j++) {
-                array[(i - 1) * matrix.numCols() + (j - 1)] = element(i, j);
-            }
-        }
-        return array;
-    }
-
     // Had to override those as the underlying implementation doesn't give equality,
     // probably because of floats. This is not critical as it's only needed in
     // tests.
@@ -59,4 +49,13 @@ final record EjmlMatrix(SimpleMatrix matrix) implements Matrix {
         return rollout().hashCode();
     }
 
+    private int[] rollout() {
+        int[] array = new int[matrix.numRows() * matrix.numCols()];
+        for (int i = 1; i <= matrix.numRows(); i++) {
+            for (int j = 1; j <= matrix.numCols(); j++) {
+                array[(i - 1) * matrix.numCols() + (j - 1)] = element(i, j);
+            }
+        }
+        return array;
+    }
 }
