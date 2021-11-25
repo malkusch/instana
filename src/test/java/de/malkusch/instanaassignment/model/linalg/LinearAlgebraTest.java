@@ -59,10 +59,10 @@ public class LinearAlgebraTest {
         var result = linearAlgebra.pow(matrix, 2);
         
         var expected = linearAlgebra.matrix(2, 2);
-        expected.set(1, 1, 37);
-        expected.set(1, 2, 54);
-        expected.set(2, 1, 81);
-        expected.set(2, 2, 118);
+        expected.set(1, 1, 7);
+        expected.set(1, 2, 10);
+        expected.set(2, 1, 15);
+        expected.set(2, 2, 22);
         assertEquals(expected, result);
     }
 
