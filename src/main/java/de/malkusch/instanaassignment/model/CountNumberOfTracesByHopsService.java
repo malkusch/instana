@@ -22,21 +22,6 @@ public final class CountNumberOfTracesByHopsService {
         }
     }
 
-    public int countByMaxHops(Graph graph, Hops max, Service start, Service end) {
-        requireNonNull(graph);
-        requireNonNull(max);
-        requireNonNull(start);
-        requireNonNull(end);
-
-        var adjacencyMatrix = graph.unweightedAdjacencyMatrix();
-        var count = 0;
-        for (int i = 1; i <= max.count; i++) {
-            var multiplied = dynamicPow(adjacencyMatrix, i);
-            count += multiplied.element(graph.index(start), graph.index(end));
-        }
-        return count;
-    }
-
     public int countByHops(Graph graph, Hops hops, Service start, Service end) {
         requireNonNull(graph);
         requireNonNull(hops);
@@ -49,8 +34,22 @@ public final class CountNumberOfTracesByHopsService {
         return count;
     }
 
+    public int countByMaxHops(Graph graph, Hops max, Service start, Service end) {
+        requireNonNull(graph);
+        requireNonNull(max);
+        requireNonNull(start);
+        requireNonNull(end);
+
+        var count = 0;
+        for (int i = 1; i <= max.count; i++) {
+            count += countByHops(graph, new Hops(i), start, end);
+        }
+        return count;
+    }
+
     private Matrix dynamicPow(Matrix matrix, int exponent) {
-        // TODO This is an excellent opportunity for dynamic programming to improve the performance
+        // TODO This is an excellent opportunity for dynamic programming to improve the
+        // performance
         return linearAlgebra.pow(matrix, exponent);
     }
 }
