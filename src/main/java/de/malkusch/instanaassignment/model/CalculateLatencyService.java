@@ -18,6 +18,9 @@ public final class CalculateLatencyService {
             var from = trace.services().get(i);
             var to = trace.services().get(i + 1);
             var weight = adjancyMatrix.element(graph.index(from), graph.index(to));
+            if (weight == 0) {
+                throw new NoSuchTraceException("No trace between " + from + " and " + to);
+            }
             millis += weight;
         }
 

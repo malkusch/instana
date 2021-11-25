@@ -43,7 +43,7 @@ public class CalculateLatencyServiceTest {
     @Test
     public void shouldFailToCalculate_5() throws NoSuchTraceException {
         assertThrows(NoSuchTraceException.class,
-                () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-E-B-C-D")));
+                () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-E-D")));
     }
 
     private static Latency latency(int latency) {
