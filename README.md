@@ -16,7 +16,7 @@ I chose to use linear algebra and graph theory for the problems. That's why the 
 
 ## Linear Algebra
 
-And then a word why I chose to have Linear Algebra as interfaces. When I started it wasn't clear to me if I have to run my own implementation or can use existing libraries, that's why I started out with interfaces so that I can make the decision later on, once my Email was answered.
+And then a word why I chose to have Linear Algebra as interfaces. When I started it wasn't clear to me if I have to run my own implementation or can use existing libraries, that's why I started out with interfaces so that I can make the decision later on, once my Email was answered. Also I decided not to use generics here, but rather cast in the concrete implementation. That way I don't have to sprinkle everywhere the concrete LinearAlgebra class as a generice (in every class that would've depend on LinearAlgebra or Matrix).
 
 ## jGraphT
 

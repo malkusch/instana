@@ -4,13 +4,13 @@ import static java.util.Arrays.stream;
 
 import java.util.List;
 
-public record Trace(List<Service> service) {
+public record Trace(List<Service> services) {
 
-    public Trace(List<Service> service) {
-        if (service.size() < 2) {
+    public Trace(List<Service> services) {
+        if (services.size() < 2) {
             throw new IllegalArgumentException("Trace must be between at least two services");
         }
-        this.service = service;
+        this.services = services;
     }
 
     public static Trace parse(String trace) {

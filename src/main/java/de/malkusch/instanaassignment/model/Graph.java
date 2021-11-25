@@ -4,21 +4,33 @@ import static java.lang.Integer.parseInt;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 import de.malkusch.instanaassignment.model.linalg.Matrix;
-import de.malkusch.instanaassignment.model.linalg.Vector;
 
-public interface Graph {
+public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Map<Service, Integer> serviceMap) {
 
-    static abstract class Factory {
-        static record Edge(Service left, Service right, int weight) {
+    public static final class Factory {
 
-            public Edge(Service left, Service right, int weight) {
-                this.left = requireNonNull(left);
+        private final LinearAlgebra linearAlgebra;
 
-                if (left.equals(right)) {
+        public Factory(LinearAlgebra linearAlgebra) {
+            this.linearAlgebra = requireNonNull(linearAlgebra);
+        }
+
+        static record Edge(Service from, Service to, int weight) {
+
+            public Edge(Service from, Service to, int weight) {
+                this.from = requireNonNull(from);
+
+                if (from.equals(to)) {
                     throw new IllegalArgumentException("Edge must not point to itself");
                 }
-                this.right = requireNonNull(right);
+                this.to = requireNonNull(to);
 
                 if (weight <= 0) {
                     throw new IllegalArgumentException("weight must be positive");
@@ -37,17 +49,34 @@ public interface Graph {
             }
         }
 
-        public abstract Graph build(Edge... edges);
+        public Graph build(Edge... edges) {
+            var serviceMap = new HashMap<Service, Integer>();
+            var distinctServices = new HashSet<>(stream(edges).flatMap(it -> Stream.of(it.from, it.to)).toList());
+            var index = 1;
+            for (var service : distinctServices) {
+                serviceMap.put(service, index);
+                index++;
+            }
 
-        public final Graph parseCsv(String csv) {
+            var adjacencyMatrix = linearAlgebra.matrix(distinctServices.size(), distinctServices.size());
+            var unweightedAdjacencyMatrix = linearAlgebra.matrix(distinctServices.size(), distinctServices.size());
+            for (var edge : edges) {
+                var i = serviceMap.get(edge.from);
+                var j = serviceMap.get(edge.to);
+                adjacencyMatrix.set(i, j, edge.weight);
+                unweightedAdjacencyMatrix.set(i, j, 1);
+            }
+
+            return new Graph(adjacencyMatrix, unweightedAdjacencyMatrix, serviceMap);
+        }
+
+        public Graph parseCsv(String csv) {
             var edges = stream(csv.split(", *")).map(Edge::parse).toArray(Edge[]::new);
             return build(edges);
         }
     }
 
-    Vector weightsForPath(Trace trace) throws NoSuchTraceException;
-
-    Matrix adjacencyMatrix();
-
-    int index(Service service);
+    public int index(Service service) {
+        return serviceMap.get(service);
+    }
 }

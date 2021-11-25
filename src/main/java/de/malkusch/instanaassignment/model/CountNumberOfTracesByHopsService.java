@@ -28,7 +28,7 @@ public final class CountNumberOfTracesByHopsService {
         requireNonNull(start);
         requireNonNull(end);
 
-        var adjacencyMatrix = graph.adjacencyMatrix();
+        var adjacencyMatrix = graph.unweightedAdjacencyMatrix();
         var count = 0;
         for (int i = 1; i <= max.count; i++) {
             var multiplied = dynamicPow(adjacencyMatrix, i);
@@ -43,7 +43,7 @@ public final class CountNumberOfTracesByHopsService {
         requireNonNull(start);
         requireNonNull(end);
 
-        var adjacencyMatrix = graph.adjacencyMatrix();
+        var adjacencyMatrix = graph.unweightedAdjacencyMatrix();
         var multiplied = dynamicPow(adjacencyMatrix, hops.count);
         var count = multiplied.element(graph.index(start), graph.index(end));
         return count;

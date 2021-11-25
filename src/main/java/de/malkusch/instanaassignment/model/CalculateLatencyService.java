@@ -4,22 +4,23 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 
-import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
-
 public final class CalculateLatencyService {
-
-    private final LinearAlgebra linearAlgebra;
-
-    public CalculateLatencyService(LinearAlgebra linearAlgebra) {
-        this.linearAlgebra = requireNonNull(linearAlgebra);
-    }
 
     public Latency calculate(Graph graph, Trace trace) throws NoSuchTraceException {
         requireNonNull(graph);
         requireNonNull(trace);
 
-        var weights = graph.weightsForPath(trace);
-        var millis = linearAlgebra.sum(weights);
+        // TODO Vectorize
+
+        var adjancyMatrix = graph.adjacencyMatrix();
+        var millis = 0;
+        for (var i = 0; i < trace.services().size() - 1; i++) {
+            var from = trace.services().get(i);
+            var to = trace.services().get(i + 1);
+            var weight = adjancyMatrix.element(graph.index(from), graph.index(to));
+            millis += weight;
+        }
+
         return new Latency(Duration.ofMillis(millis));
     }
 }
