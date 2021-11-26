@@ -27,6 +27,7 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             this.linearAlgebra = requireNonNull(linearAlgebra);
         }
 
+        // TODO weight could be Latency
         public static record Edge(Service from, Service to, int weight) {
 
             public Edge(Service from, Service to, int weight) {

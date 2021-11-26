@@ -1,14 +1,14 @@
 package de.malkusch.instanaassignment.model.linalg;
 
+import static de.malkusch.instanaassignment.model.TestFixture.LINEAR_ALGEBRA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import de.malkusch.instanaassignment.model.TestFixture;
-
 public class LinearAlgebraTest {
 
-    private final LinearAlgebra linearAlgebra = TestFixture.LINEAR_ALGEBRA;
+    private final LinearAlgebra linearAlgebra = LINEAR_ALGEBRA;
 
     @Test
     public void shouldBuildMatrix() {
@@ -27,6 +27,14 @@ public class LinearAlgebraTest {
         assertEquals(22, matrix.element(2, 2));
         assertEquals(31, matrix.element(3, 1));
         assertEquals(32, matrix.element(3, 2));
+    }
+
+    @Test
+    public void shouldFailBuildMatrixOutOfDimensions() {
+        var matrix = linearAlgebra.matrix(new Dimensions(2, 2));
+
+        assertThrows(IllegalArgumentException.class, () -> matrix.set(3, 1, 1));
+        assertThrows(IllegalArgumentException.class, () -> matrix.set(1, 3, 1));
     }
 
     @Test
@@ -60,4 +68,10 @@ public class LinearAlgebraTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void powShouldFailWhenMatrixIsSquare() {
+        var matrix = linearAlgebra.matrix(new Dimensions(3, 2));
+
+        assertThrows(IllegalArgumentException.class, () -> linearAlgebra.pow(matrix, 2));
+    }
 }

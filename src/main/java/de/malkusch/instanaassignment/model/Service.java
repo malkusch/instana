@@ -13,4 +13,8 @@ public record Service(String name) {
         this(String.valueOf(name));
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

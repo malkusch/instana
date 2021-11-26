@@ -11,4 +11,11 @@ public record Latency(Duration latency) {
         this.latency = latency;
     }
 
+    public int asWeight() {
+        return (int) latency.toMillis();
+    }
+
+    public static Latency fromWeight(int weight) {
+        return new Latency(Duration.ofMillis(weight));
+    }
 }

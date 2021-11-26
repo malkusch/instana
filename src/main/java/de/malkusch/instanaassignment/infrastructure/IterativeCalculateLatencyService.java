@@ -2,8 +2,6 @@ package de.malkusch.instanaassignment.infrastructure;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Duration;
-
 import de.malkusch.instanaassignment.model.CalculateLatencyService;
 import de.malkusch.instanaassignment.model.Graph;
 import de.malkusch.instanaassignment.model.Latency;
@@ -20,7 +18,7 @@ public final class IterativeCalculateLatencyService implements CalculateLatencyS
         // TODO Vectorize
 
         var adjancyMatrix = graph.adjacencyMatrix();
-        var millis = 0;
+        var sum = 0;
         for (var i = 0; i < trace.services().size() - 1; i++) {
             var from = trace.services().get(i);
             var to = trace.services().get(i + 1);
@@ -28,9 +26,9 @@ public final class IterativeCalculateLatencyService implements CalculateLatencyS
             if (weight == 0) {
                 throw new NoSuchTraceException("No trace between " + from + " and " + to);
             }
-            millis += weight;
+            sum += weight;
         }
 
-        return new Latency(Duration.ofMillis(millis));
+        return Latency.fromWeight(sum);
     }
 }

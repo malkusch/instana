@@ -5,6 +5,9 @@ public interface LinearAlgebra {
     Matrix multiply(Matrix a, Matrix b);
 
     default Matrix pow(Matrix matrix, int exponent) {
+        if (matrix.dimensions().columns() != matrix.dimensions().rows()) {
+            throw new IllegalArgumentException("Matrix size must have identical rows and columns");
+        }
         if (exponent == 1) {
             return matrix;
         }

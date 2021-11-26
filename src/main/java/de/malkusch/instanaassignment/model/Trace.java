@@ -1,5 +1,6 @@
 package de.malkusch.instanaassignment.model;
 
+import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.unmodifiableList;
 
@@ -15,14 +16,23 @@ public record Trace(List<Service> services) {
         this.services = unmodifiableList(services);
     }
 
+    public Trace(Service... services) {
+        this(asList(services));
+    }
+
     public static Trace parse(String trace) {
         var services = stream(trace.split("-")).map(Service::new).toList();
         return new Trace(services);
     }
-    
+
     public Trace prepend(Service service) {
         var prepended = new LinkedList<>(services());
         prepended.addFirst(service);
         return new Trace(prepended);
+    }
+
+    @Override
+    public String toString() {
+        return services.stream().map(Service::toString).reduce((a, b) -> a + "-" + b).get();
     }
 }
