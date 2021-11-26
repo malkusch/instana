@@ -96,7 +96,7 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
         return serviceMap.keySet();
     }
 
-    public Set<Edge> neighbors(Service service) {
+    public Set<Edge> edges(Service service) {
         var i = index(service);
         var neighbors = new HashSet<Edge>();
         for (int j = 1; j <= adjacencyMatrix.dimensions().columns(); j++) {

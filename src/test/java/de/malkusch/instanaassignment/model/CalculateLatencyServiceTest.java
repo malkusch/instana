@@ -46,6 +46,16 @@ public class CalculateLatencyServiceTest {
         assertThrows(NoSuchTraceException.class, () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-E-D")));
     }
 
+    @Test
+    public void shouldFailToCalculateWhenUnreachable() throws NoSuchTraceException {
+        assertThrows(NoSuchTraceException.class, () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-C")));
+    }
+
+    @Test
+    public void shouldFailToCalculateWhenWrongDirection() throws NoSuchTraceException {
+        assertThrows(NoSuchTraceException.class, () -> calculateLatencyService.calculate(GRAPH, Trace.parse("E-A")));
+    }
+
     private static Latency latency(int latency) {
         return new Latency(Duration.ofMillis(latency));
     }

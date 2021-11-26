@@ -2,17 +2,17 @@ package de.malkusch.instanaassignment.infrastructure;
 
 import static java.util.Objects.requireNonNull;
 
-import de.malkusch.instanaassignment.model.CountNumberOfTracesByHopsService;
+import de.malkusch.instanaassignment.model.CountTracesByHopsService;
 import de.malkusch.instanaassignment.model.Graph;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 import de.malkusch.instanaassignment.model.linalg.Matrix;
 
-public final class VectorizedCountNumberOfTracesByHopsService implements CountNumberOfTracesByHopsService {
+public final class VectorizedCountTracesByHopsService implements CountTracesByHopsService {
 
     private final LinearAlgebra linearAlgebra;
 
-    public VectorizedCountNumberOfTracesByHopsService(LinearAlgebra linearAlgebra) {
+    public VectorizedCountTracesByHopsService(LinearAlgebra linearAlgebra) {
         this.linearAlgebra = requireNonNull(linearAlgebra);
     }
 

@@ -31,7 +31,7 @@ public final class DijkstraFindShortestTraceService implements FindShortestTrace
     @Override
     public Trace find(Graph graph, Service start, Service end) throws NoSuchTraceException {
         if (start.equals(end)) {
-            var neighbors = graph.neighbors(start);
+            var neighbors = graph.edges(start);
             var candidates = new ArrayList<Trace>();
             for (var neighbor : neighbors) {
                 try {
@@ -75,7 +75,7 @@ public final class DijkstraFindShortestTraceService implements FindShortestTrace
 
             q.remove(u);
 
-            for (var neighbor : graph.neighbors(u)) {
+            for (var neighbor : graph.edges(u)) {
                 var v = neighbor.to();
 
                 if (!q.contains(v)) {

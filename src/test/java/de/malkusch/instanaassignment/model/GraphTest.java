@@ -1,7 +1,10 @@
 package de.malkusch.instanaassignment.model;
 
+import static de.malkusch.instanaassignment.model.TestFixture.GRAPH;
+import static de.malkusch.instanaassignment.model.TestFixture.GRAPH_FACTORY;
 import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,21 +16,31 @@ import de.malkusch.instanaassignment.model.Graph.Factory.Edge;
 public class GraphTest {
 
     @Test
-    public void testNeighborsFromA() {
-        var start = new Service("A");
+    public void testEdgesFromA() {
+        var node = new Service("A");
 
-        var neighbors = TestFixture.GRAPH.neighbors(start);
+        var edges = GRAPH.edges(node);
 
-        assertEquals(edges("AB5", "AD5", "AE7"), neighbors);
+        assertEquals(edges("AB5", "AD5", "AE7"), edges);
     }
 
     @Test
-    public void testNeighborsFromB() {
-        var start = new Service("B");
+    public void testEdgesFromB() {
+        var node = new Service("B");
 
-        var neighbors = TestFixture.GRAPH.neighbors(start);
+        var edges = GRAPH.edges(node);
 
-        assertEquals(edges("BC4"), neighbors);
+        assertEquals(edges("BC4"), edges);
+    }
+
+    @Test
+    public void leafShouldHaveNoNeighbors() {
+        var graph = GRAPH_FACTORY.parseCsv("AB1, BC2");
+        var leaf = new Service("C");
+
+        var edges = graph.edges(leaf);
+
+        assertTrue(edges.isEmpty());
     }
 
     private static Set<Edge> edges(String... edges) {

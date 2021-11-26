@@ -2,7 +2,7 @@ package de.malkusch.instanaassignment.model;
 
 import static java.util.Objects.requireNonNull;
 
-public interface CountNumberOfTracesByHopsService {
+public interface CountTracesByHopsService {
 
     static record Hops(int count) {
         public Hops(int count) {
