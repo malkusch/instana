@@ -1,4 +1,4 @@
-package de.malkusch.instanaassignment.model;
+package de.malkusch.instanaassignment.model.graph;
 
 import static de.malkusch.instanaassignment.model.TestFixture.GRAPH;
 import static de.malkusch.instanaassignment.model.TestFixture.GRAPH_FACTORY;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import de.malkusch.instanaassignment.model.Graph.Factory.Edge;
+import de.malkusch.instanaassignment.model.Service;
 
 public class GraphTest {
 

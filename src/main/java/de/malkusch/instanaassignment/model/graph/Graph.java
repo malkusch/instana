@@ -1,6 +1,5 @@
-package de.malkusch.instanaassignment.model;
+package de.malkusch.instanaassignment.model.graph;
 
-import static java.lang.Integer.parseInt;
 import static java.util.Arrays.stream;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
@@ -11,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import de.malkusch.instanaassignment.model.Graph.Factory.Edge;
+import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.linalg.Dimensions;
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 import de.malkusch.instanaassignment.model.linalg.Matrix;
@@ -27,37 +26,9 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             this.linearAlgebra = requireNonNull(linearAlgebra);
         }
 
-        // TODO weight could be Latency
-        public static record Edge(Service from, Service to, int weight) {
-
-            public Edge(Service from, Service to, int weight) {
-                this.from = requireNonNull(from);
-
-                if (from.equals(to)) {
-                    throw new IllegalArgumentException("Edge must not point to itself");
-                }
-                this.to = requireNonNull(to);
-
-                if (weight <= 0) {
-                    throw new IllegalArgumentException("weight must be positive");
-                }
-                this.weight = weight;
-            }
-
-            public static Edge parse(String edge) {
-                if (edge.length() < 3) {
-                    throw new IllegalArgumentException("Too short, must be something like AB3");
-                }
-                var left = new Service(edge.charAt(0));
-                var right = new Service(edge.charAt(1));
-                var weight = parseInt(edge.substring(2));
-                return new Edge(left, right, weight);
-            }
-        }
-
         public Graph build(Edge... edges) {
             var serviceMap = new HashMap<Service, Integer>();
-            var distinctServices = new HashSet<>(stream(edges).flatMap(it -> Stream.of(it.from, it.to)).toList());
+            var distinctServices = new HashSet<>(stream(edges).flatMap(it -> Stream.of(it.from(), it.to())).toList());
             var indexMap = new Service[distinctServices.size() + 1];
             var index = 1;
             for (var service : distinctServices) {
@@ -70,9 +41,9 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             var adjacencyMatrix = linearAlgebra.matrix(dimensions);
             var unweightedAdjacencyMatrix = linearAlgebra.matrix(dimensions);
             for (var edge : edges) {
-                var i = serviceMap.get(edge.from);
-                var j = serviceMap.get(edge.to);
-                adjacencyMatrix.set(i, j, edge.weight);
+                var i = serviceMap.get(edge.from());
+                var j = serviceMap.get(edge.to());
+                adjacencyMatrix.set(i, j, edge.weight());
                 unweightedAdjacencyMatrix.set(i, j, 1);
             }
 

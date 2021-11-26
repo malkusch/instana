@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 import de.malkusch.instanaassignment.model.CalculateLatencyService;
 import de.malkusch.instanaassignment.model.FindShortestTraceService;
-import de.malkusch.instanaassignment.model.Graph;
+import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.NoSuchTraceException;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;

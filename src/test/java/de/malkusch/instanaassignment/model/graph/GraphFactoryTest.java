@@ -1,4 +1,4 @@
-package de.malkusch.instanaassignment.model;
+package de.malkusch.instanaassignment.model.graph;
 
 import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.malkusch.instanaassignment.infrastructure.linalg.EjmlLinearAlgebra;
-import de.malkusch.instanaassignment.model.Graph.Factory.Edge;
 
 public class GraphFactoryTest {
 

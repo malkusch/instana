@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import de.malkusch.instanaassignment.model.CountTracesWithinLatencyService;
-import de.malkusch.instanaassignment.model.Graph;
+import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;

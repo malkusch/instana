@@ -3,7 +3,7 @@ package de.malkusch.instanaassignment.infrastructure;
 import static java.util.Objects.requireNonNull;
 
 import de.malkusch.instanaassignment.model.CountTracesByHopsService;
-import de.malkusch.instanaassignment.model.Graph;
+import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 import de.malkusch.instanaassignment.model.linalg.Matrix;

@@ -2,6 +2,8 @@ package de.malkusch.instanaassignment.model;
 
 import static java.util.Objects.requireNonNull;
 
+import de.malkusch.instanaassignment.model.graph.Graph;
+
 public interface CountTracesByHopsService {
 
     static record Hops(int count) {

@@ -3,7 +3,8 @@ package de.malkusch.instanaassignment.model;
 import de.malkusch.instanaassignment.infrastructure.DijkstraFindShortestTraceService;
 import de.malkusch.instanaassignment.infrastructure.IterativeCalculateLatencyService;
 import de.malkusch.instanaassignment.infrastructure.linalg.EjmlLinearAlgebra;
-import de.malkusch.instanaassignment.model.Graph.Factory;
+import de.malkusch.instanaassignment.model.graph.Graph.Factory;
+import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
 
 public class TestFixture {

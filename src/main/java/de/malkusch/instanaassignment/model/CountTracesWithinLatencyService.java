@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
 
+import de.malkusch.instanaassignment.model.graph.Graph;
+
 public interface CountTracesWithinLatencyService {
 
     Set<Trace> search(Graph graph, Latency max, Service start, Service end);
