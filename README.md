@@ -1,8 +1,17 @@
 # Build & Run
 
-I chose to use Java-16 language features (records), so you will at least need that plus maven to build it:
+I chose to use Java-16 language features (records), so you will at least need that plus maven (>=3.0.5) to build it:
 
-    mvn package
+    $ mvn clean compile assembly:single
+
+That created the jar file `target/assignment.jar`. That jar file accepts a path to the CSV file with the graph specification:
+
+    $ java -jar target/assignment.jar $GRAPH-CSV-FILE
+
+## Example
+
+    $ mvn clean compile assembly:single
+    $ java -jar target/assignment.jar sample-graph.csv
     
 # Remarks
 

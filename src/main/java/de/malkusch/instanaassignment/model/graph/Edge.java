@@ -25,7 +25,7 @@ public record Edge(Service from, Service to, Latency weight) {
         }
         var left = new Service(edge.charAt(0));
         var right = new Service(edge.charAt(1));
-        var weight = Latency.fromWeight(parseInt(edge.substring(2)));
+        var weight = Latency.fromWeight(parseInt(edge.substring(2).trim()));
         return new Edge(left, right, weight);
     }
 }

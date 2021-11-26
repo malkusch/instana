@@ -12,7 +12,8 @@ import de.malkusch.instanaassignment.infrastructure.linalg.EjmlLinearAlgebra;
 public class GraphFactoryTest {
 
     @ParameterizedTest
-    @ValueSource(strings = { "AB5, BC4, CD8", "AB5,BC4,CD8", "AB5, BC4,CD8", "AB5,BC4, CD8", "AB5,BC4,CD8," })
+    @ValueSource(strings = { "AB5, BC4, CD8", "AB5,BC4,CD8", "AB5, BC4,CD8", "AB5,BC4, CD8", "AB5,BC4,CD8,",
+            "AB5, BC4, CD8\n", "AB5, BC4, CD8\r\n" })
     public void shouldParseGraph(String csv) {
         var factory = new Graph.Factory(new EjmlLinearAlgebra());
         var parsed = factory.parseCsv(csv);

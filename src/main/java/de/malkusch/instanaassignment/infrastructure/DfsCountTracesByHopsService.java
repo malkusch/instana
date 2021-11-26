@@ -47,10 +47,8 @@ public class DfsCountTracesByHopsService implements CountTracesWithinLatencyServ
             if (service.equals(target) && appended.nodes.size() > 1) {
                 results.add(appended);
             }
-            edgesWithWeightLessThan(max).forEach(edge -> {
-
-                edge.node.search(results, appended, target, max - edge.weight);
-            });
+            edgesWithWeightLessThan(max)
+                    .forEach(edge -> edge.node.search(results, appended, target, max - edge.weight));
         }
 
         private static record Edge(int weight, Node node) {
