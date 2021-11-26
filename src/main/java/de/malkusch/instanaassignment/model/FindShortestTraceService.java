@@ -1,10 +1,7 @@
 package de.malkusch.instanaassignment.model;
 
-public final class FindShortestTraceService {
+public interface FindShortestTraceService {
 
-    public Trace find(Graph graph, Service start, Service end) {
-        // TODO
-        return null;
-    }
+    Trace find(Graph graph, Service start, Service end) throws NoSuchTraceException;
 
 }

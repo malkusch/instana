@@ -2,6 +2,7 @@ package de.malkusch.instanaassignment.model;
 
 import static de.malkusch.instanaassignment.model.TestFixture.GRAPH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Duration;
 
@@ -32,6 +33,14 @@ public class FindShortestTraceServiceTest {
         var shortest = findShortestTraceService.find(GRAPH, start, end);
 
         assertEquals(latency(9), calculateLatencyService.calculate(GRAPH, shortest));
+    }
+
+    @Test
+    public void shouldNotFindShortestTrace() throws NoSuchTraceException {
+        var start = new Service("C");
+        var end = new Service("A");
+
+        assertThrows(NoSuchTraceException.class, () -> findShortestTraceService.find(GRAPH, start, end));
     }
 
     private static Latency latency(int latency) {
