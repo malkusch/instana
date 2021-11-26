@@ -11,6 +11,12 @@ jobs:
         with:
           java-version: '16'
           distribution: 'adopt'
-      - name: Build with Maven
+      - name: Test
         run: mvn --batch-mode --update-snapshots verify
+      - name: Build jar
+        run: mvn --batch-mode assembly:single
+      - uses: actions/upload-artifact@v2
+        with:
+          name: assignment.jar
+          path: target/assignment.jar
 
