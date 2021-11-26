@@ -15,6 +15,8 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
       - name: Build jar
         run: mvn --batch-mode --update-snapshots clean compile assembly:single
+      - name: Run jar
+        run: java -jar target/assignment.jar sample-graph.csv
       - name: Upload snapshot
         uses: svenstaro/upload-release-action@v2
         with:
