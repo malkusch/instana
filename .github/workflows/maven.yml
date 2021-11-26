@@ -16,7 +16,7 @@ jobs:
       - name: Build jar
         run: mvn --batch-mode --update-snapshots clean compile assembly:single
       - name: Run jar
-        run: java -jar target/assignment.jar sample-graph.csv
+        run: java -jar target/assignment.jar sample-graph.csvx
       - name: Upload snapshot
         uses: svenstaro/upload-release-action@v2
         with:
