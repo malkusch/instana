@@ -14,7 +14,17 @@ import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;
 import de.malkusch.instanaassignment.model.graph.Graph;
 
-public class DfsCountTracesByHopsService implements CountTracesWithinLatencyService {
+public final class DfsCountTracesByHopsService implements CountTracesWithinLatencyService {
+
+    @Override
+    public Set<Trace> search(Graph graph, Latency max, Service start, Service end) {
+        var startNode = new Node(graph, start);
+        var results = startNode.search(end, max);
+
+        var traces = new HashSet<>(results.stream().map(Node.Path::toTrace).toList());
+
+        return traces;
+    }
 
     private static record Node(Graph graph, Service service) {
 
@@ -64,15 +74,4 @@ public class DfsCountTracesByHopsService implements CountTracesWithinLatencyServ
                     .map(it -> new Edge(it.weight().toWeight(), new Node(graph, it.to())));
         }
     }
-
-    @Override
-    public Set<Trace> search(Graph graph, Latency max, Service start, Service end) {
-        var startNode = new Node(graph, start);
-        var results = startNode.search(end, max);
-
-        var traces = new HashSet<>(results.stream().map(Node.Path::toTrace).toList());
-
-        return traces;
-    }
-
 }
