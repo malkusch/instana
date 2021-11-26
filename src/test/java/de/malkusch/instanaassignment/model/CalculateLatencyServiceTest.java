@@ -2,6 +2,7 @@ package de.malkusch.instanaassignment.model;
 
 import static de.malkusch.instanaassignment.model.TestFixture.CALCULATE_LATENCY_SERVICE;
 import static de.malkusch.instanaassignment.model.TestFixture.GRAPH;
+import static de.malkusch.instanaassignment.model.TestFixture.GRAPH_FACTORY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,6 +17,15 @@ public class CalculateLatencyServiceTest {
         var latency = calculateLatencyService.calculate(GRAPH, Trace.parse("A-B-C"));
 
         assertEquals(Latency.fromWeight(9), latency);
+    }
+
+    @Test
+    public void shouldCalculateTraceWithCcyle() throws NoSuchTraceException {
+        var graph = GRAPH_FACTORY.parseCsv("AB1, BC2, BA3, AC4");
+
+        var latency = calculateLatencyService.calculate(graph, Trace.parse("A-B-A-C"));
+
+        assertEquals(Latency.fromWeight(1 + 3 + 4), latency);
     }
 
     @Test
