@@ -1,12 +1,24 @@
-# Build & Run
+# Build and Run
 
-I chose to use Java-16 language features (records), so you will at least need that plus maven (>=3.0.5) to build it:
+I chose to use Java-16 language features (records), so you will at least need.
+
+## Get the assignment.jar
+
+You could either conveniently [download](https://github.com/malkusch/instana/releases/download/master/assignment.jar) or build the file `assignment.jar`.
+
+### Build
+
+You need maven >= 3.0.5 to build it:
 
     $ mvn clean compile assembly:single
 
-That created the jar file `target/assignment.jar`. That jar file accepts a path to the CSV file with the graph specification:
+That created the jar file `target/assignment.jar`.
 
-    $ java -jar target/assignment.jar $GRAPH-CSV-FILE
+# Run
+
+That jar file accepts a path to the CSV file with the graph specification:
+
+    $ java -jar assignment.jar $GRAPH-CSV-FILE
 
 ## Example
 
