@@ -17,18 +17,6 @@ public final class EjmlLinearAlgebra implements LinearAlgebra {
     }
 
     @Override
-    public Matrix pow(Matrix matrix, int exponent) {
-        if (exponent == 1) {
-            return matrix;
-        }
-        var result = matrix;
-        for (int i = 2; i <= exponent; i++) {
-            result = multiply(matrix, result);
-        }
-        return result;
-    }
-
-    @Override
     public Matrix matrix(int rows, int cols) {
         return new EjmlMatrix(new SimpleMatrix(rows, cols));
     }
