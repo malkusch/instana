@@ -4,7 +4,7 @@ I chose to use Java-16 language features (records), so you will at least need.
 
 ## Get the assignment.jar
 
-You could either conveniently [download](https://github.com/malkusch/instana/releases/download/master/assignment.jar) or build the file `assignment.jar`.
+You could either conveniently [download](https://github.com/malkusch/instana/releases/download/master-snapshot/assignment.jar) or build the file `assignment.jar`.
 
 ### Build
 

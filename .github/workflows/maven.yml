@@ -37,7 +37,7 @@ jobs:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
             file: assignment.jar
             asset_name: assignment.jar
-            tag: ${{ github.ref }}
+            tag: ${{ github.ref }}-snapshot
             overwrite: true
 
 
