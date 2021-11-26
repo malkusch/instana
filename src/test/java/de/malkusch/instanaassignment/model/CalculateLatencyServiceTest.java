@@ -8,9 +8,11 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
+import de.malkusch.instanaassignment.infrastructure.IterativeCalculateLatencyService;
+
 public class CalculateLatencyServiceTest {
 
-    private final CalculateLatencyService calculateLatencyService = new CalculateLatencyService();
+    private final CalculateLatencyService calculateLatencyService = new IterativeCalculateLatencyService();
 
     @Test
     public void shouldCalculate_1() throws NoSuchTraceException {
@@ -42,8 +44,7 @@ public class CalculateLatencyServiceTest {
 
     @Test
     public void shouldFailToCalculate_5() throws NoSuchTraceException {
-        assertThrows(NoSuchTraceException.class,
-                () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-E-D")));
+        assertThrows(NoSuchTraceException.class, () -> calculateLatencyService.calculate(GRAPH, Trace.parse("A-E-D")));
     }
 
     private static Latency latency(int latency) {

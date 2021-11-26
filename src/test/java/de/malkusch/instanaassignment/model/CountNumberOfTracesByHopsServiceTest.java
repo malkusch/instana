@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import de.malkusch.instanaassignment.infrastructure.VectorizedCountNumberOfTracesByHopsService;
 import de.malkusch.instanaassignment.model.CountNumberOfTracesByHopsService.Hops;
 
 public class CountNumberOfTracesByHopsServiceTest {
 
-    private final CountNumberOfTracesByHopsService countService = new CountNumberOfTracesByHopsService(LINEAR_ALGEBRA);
+    private final CountNumberOfTracesByHopsService countService = new VectorizedCountNumberOfTracesByHopsService(
+            LINEAR_ALGEBRA);
 
     @Test
     public void countByMaxHopsShouldCount_Task6() {

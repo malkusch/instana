@@ -7,10 +7,12 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
+import de.malkusch.instanaassignment.infrastructure.IterativeCalculateLatencyService;
+
 public class FindShortestTraceServiceTest {
 
     private final FindShortestTraceService findShortestTraceService = null; // TODO
-    private final CalculateLatencyService calculateLatencyService = new CalculateLatencyService();
+    private final CalculateLatencyService calculateLatencyService = new IterativeCalculateLatencyService();
 
     @Test
     public void shouldFindShortestBetweenAC_8() throws NoSuchTraceException {
