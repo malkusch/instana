@@ -14,9 +14,13 @@ jobs:
       - name: Test
         run: mvn --batch-mode --update-snapshots verify
       - name: Build jar
-        run: mvn --batch-mode assembly:single
-      - uses: actions/upload-artifact@v2
+        run: mvn --batch-mode --update-snapshots clean compile assembly:single
+      - name: Upload snapshot
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: assignment.jar
-          path: target/assignment.jar
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: target/assignment.jar
+            asset_name: assignment.jar
+            tag: ${{ github.ref }}
+            overwrite: true
 
