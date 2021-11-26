@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.ejml.simple.SimpleMatrix;
 
+import de.malkusch.instanaassignment.model.linalg.Dimensions;
 import de.malkusch.instanaassignment.model.linalg.Matrix;
 
 final record EjmlMatrix(SimpleMatrix matrix) implements Matrix {
@@ -18,6 +19,11 @@ final record EjmlMatrix(SimpleMatrix matrix) implements Matrix {
     public void set(int i, int j, int value) {
         // Potential floating point issues
         matrix.set(i - 1, j - 1, value);
+    }
+
+    @Override
+    public Dimensions dimensions() {
+        return new Dimensions(matrix.numRows(), matrix.numCols());
     }
 
     @Override

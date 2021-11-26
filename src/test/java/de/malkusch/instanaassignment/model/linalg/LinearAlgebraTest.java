@@ -12,7 +12,7 @@ public class LinearAlgebraTest {
 
     @Test
     public void shouldBuildMatrix() {
-        var matrix = linearAlgebra.matrix(3, 2);
+        var matrix = linearAlgebra.matrix(new Dimensions(3, 2));
 
         matrix.set(1, 1, 11);
         matrix.set(1, 2, 12);
@@ -31,7 +31,7 @@ public class LinearAlgebraTest {
 
     @Test
     public void testPow1() {
-        var matrix = linearAlgebra.matrix(2, 2);
+        var matrix = linearAlgebra.matrix(new Dimensions(2, 2));
         matrix.set(1, 1, 1);
         matrix.set(1, 2, 2);
         matrix.set(2, 1, 3);
@@ -44,7 +44,7 @@ public class LinearAlgebraTest {
 
     @Test
     public void testPow2() {
-        var matrix = linearAlgebra.matrix(2, 2);
+        var matrix = linearAlgebra.matrix(new Dimensions(2, 2));
         matrix.set(1, 1, 1);
         matrix.set(1, 2, 2);
         matrix.set(2, 1, 3);
@@ -52,7 +52,7 @@ public class LinearAlgebraTest {
 
         var result = linearAlgebra.pow(matrix, 2);
 
-        var expected = linearAlgebra.matrix(2, 2);
+        var expected = linearAlgebra.matrix(new Dimensions(2, 2));
         expected.set(1, 1, 7);
         expected.set(1, 2, 10);
         expected.set(2, 1, 15);

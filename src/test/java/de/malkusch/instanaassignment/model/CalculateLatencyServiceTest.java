@@ -1,5 +1,6 @@
 package de.malkusch.instanaassignment.model;
 
+import static de.malkusch.instanaassignment.model.TestFixture.CALCULATE_LATENCY_SERVICE;
 import static de.malkusch.instanaassignment.model.TestFixture.GRAPH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,11 +9,9 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
-import de.malkusch.instanaassignment.infrastructure.IterativeCalculateLatencyService;
-
 public class CalculateLatencyServiceTest {
 
-    private final CalculateLatencyService calculateLatencyService = new IterativeCalculateLatencyService();
+    private final CalculateLatencyService calculateLatencyService = CALCULATE_LATENCY_SERVICE;
 
     @Test
     public void shouldCalculate_1() throws NoSuchTraceException {

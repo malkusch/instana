@@ -15,6 +15,6 @@ public interface LinearAlgebra {
         return result;
     }
 
-    Matrix matrix(int rows, int cols);
+    Matrix matrix(Dimensions dimensions);
 
 }
