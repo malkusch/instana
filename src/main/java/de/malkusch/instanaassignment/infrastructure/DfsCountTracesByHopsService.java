@@ -9,10 +9,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import de.malkusch.instanaassignment.model.CountTracesWithinLatencyService;
-import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;
+import de.malkusch.instanaassignment.model.graph.Graph;
 
 public class DfsCountTracesByHopsService implements CountTracesWithinLatencyService {
 
@@ -38,7 +38,7 @@ public class DfsCountTracesByHopsService implements CountTracesWithinLatencyServ
         public List<Path> search(Service target, Latency max) {
             var results = new LinkedList<Path>();
             var path = new Path();
-            search(results, path, target, max.asWeight());
+            search(results, path, target, max.toWeight());
             return results;
         }
 
@@ -63,7 +63,7 @@ public class DfsCountTracesByHopsService implements CountTracesWithinLatencyServ
 
         private Stream<Edge> edges() {
             return graph.edges(service).stream() //
-                    .map(it -> new Edge(it.weight(), new Node(graph, it.to())));
+                    .map(it -> new Edge(it.weight().toWeight(), new Node(graph, it.to())));
         }
     }
 

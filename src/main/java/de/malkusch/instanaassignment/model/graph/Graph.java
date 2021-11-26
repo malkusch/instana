@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.linalg.Dimensions;
 import de.malkusch.instanaassignment.model.linalg.LinearAlgebra;
@@ -43,7 +44,7 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             for (var edge : edges) {
                 var i = serviceMap.get(edge.from());
                 var j = serviceMap.get(edge.to());
-                adjacencyMatrix.set(i, j, edge.weight());
+                adjacencyMatrix.set(i, j, edge.weight().toWeight());
                 unweightedAdjacencyMatrix.set(i, j, 1);
             }
 
@@ -75,7 +76,7 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             var weight = adjacencyMatrix.element(i, j);
             if (weight > 0) {
                 var to = service(j);
-                neighbors.add(new Edge(service, to, weight));
+                neighbors.add(new Edge(service, to, Latency.fromWeight(weight)));
             }
         }
         return neighbors;

@@ -12,10 +12,10 @@ import java.util.LinkedList;
 
 import de.malkusch.instanaassignment.model.CalculateLatencyService;
 import de.malkusch.instanaassignment.model.FindShortestTraceService;
-import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.NoSuchTraceException;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;
+import de.malkusch.instanaassignment.model.graph.Graph;
 
 public final class DijkstraFindShortestTraceService implements FindShortestTraceService {
 
@@ -51,7 +51,7 @@ public final class DijkstraFindShortestTraceService implements FindShortestTrace
     }
 
     private Trace shortest(Graph graph, Collection<Trace> traces) throws NoSuchTraceException {
-        return traces.stream().min(Comparator.comparing(it -> calculateLatencyService.calculate(graph, it).latency()))
+        return traces.stream().min(Comparator.comparing(it -> calculateLatencyService.calculate(graph, it).value()))
                 .orElseThrow(() -> new NoSuchTraceException("No shortes trace"));
     }
 
@@ -82,7 +82,7 @@ public final class DijkstraFindShortestTraceService implements FindShortestTrace
                     continue;
                 }
 
-                var alt = dist.get(u) + neighbor.weight();
+                var alt = dist.get(u) + neighbor.weight().toWeight();
                 if (alt < dist.get(v)) {
                     dist.put(v, alt);
                     prev.put(v, u);

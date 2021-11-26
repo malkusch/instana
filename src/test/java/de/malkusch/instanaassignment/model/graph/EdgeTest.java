@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.Service;
 
 public class EdgeTest {
@@ -33,6 +34,6 @@ public class EdgeTest {
     }
 
     private static Edge edge(String left, String right, int weight) {
-        return new Edge(new Service(left), new Service(right), weight);
+        return new Edge(new Service(left), new Service(right), Latency.fromWeight(weight));
     }
 }

@@ -3,11 +3,12 @@ package de.malkusch.instanaassignment.model.graph;
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 
+import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.Service;
 
-public record Edge(Service from, Service to, int weight) {
+public record Edge(Service from, Service to, Latency weight) {
 
-    public Edge(Service from, Service to, int weight) {
+    public Edge(Service from, Service to, Latency weight) {
         this.from = requireNonNull(from);
 
         if (from.equals(to)) {
@@ -15,10 +16,7 @@ public record Edge(Service from, Service to, int weight) {
         }
         this.to = requireNonNull(to);
 
-        if (weight <= 0) {
-            throw new IllegalArgumentException("weight must be positive");
-        }
-        this.weight = weight;
+        this.weight = requireNonNull(weight);
     }
 
     public static Edge parse(String edge) {
@@ -27,7 +25,7 @@ public record Edge(Service from, Service to, int weight) {
         }
         var left = new Service(edge.charAt(0));
         var right = new Service(edge.charAt(1));
-        var weight = parseInt(edge.substring(2));
+        var weight = Latency.fromWeight(parseInt(edge.substring(2)));
         return new Edge(left, right, weight);
     }
 }

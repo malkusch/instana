@@ -3,10 +3,10 @@ package de.malkusch.instanaassignment.infrastructure;
 import static java.util.Objects.requireNonNull;
 
 import de.malkusch.instanaassignment.model.CalculateLatencyService;
-import de.malkusch.instanaassignment.model.graph.Graph;
 import de.malkusch.instanaassignment.model.Latency;
 import de.malkusch.instanaassignment.model.NoSuchTraceException;
 import de.malkusch.instanaassignment.model.Trace;
+import de.malkusch.instanaassignment.model.graph.Graph;
 
 public final class IterativeCalculateLatencyService implements CalculateLatencyService {
 
