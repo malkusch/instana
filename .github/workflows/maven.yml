@@ -10,6 +10,7 @@ jobs:
         with:
           java-version: '16'
           distribution: 'adopt'
+          cache: 'maven'
       - name: Build jar
         run: mvn --batch-mode --update-snapshots clean compile assembly:single
       - name: Save target
@@ -32,6 +33,7 @@ jobs:
         with:
           java-version: '16'
           distribution: 'adopt'
+          cache: 'maven'
       - name: Restore target
         uses: actions/download-artifact@v2
         with:
