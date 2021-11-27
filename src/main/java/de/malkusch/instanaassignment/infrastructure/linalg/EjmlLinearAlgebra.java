@@ -22,4 +22,9 @@ public final class EjmlLinearAlgebra implements LinearAlgebra {
         return new EjmlMatrix(new SimpleMatrix(dimensions.rows(), dimensions.columns()));
     }
 
+    @Override
+    public int trace(Matrix matrix) {
+        var ejmlMatrix = (EjmlMatrix) matrix;
+        return (int) ejmlMatrix.matrix().trace();
+    }
 }

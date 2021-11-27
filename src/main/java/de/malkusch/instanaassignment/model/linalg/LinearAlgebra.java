@@ -18,6 +18,8 @@ public interface LinearAlgebra {
         return result;
     }
 
+    int trace(Matrix matrix);
+
     Matrix matrix(Dimensions dimensions);
 
 }

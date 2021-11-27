@@ -20,7 +20,7 @@ public class CalculateLatencyServiceTest {
     }
 
     @Test
-    public void shouldCalculateTraceWithCcyle() throws NoSuchTraceException {
+    public void shouldCalculateTraceWithCycle() throws NoSuchTraceException {
         var graph = GRAPH_FACTORY.parseCsv("AB1, BC2, BA3, AC4");
 
         var latency = calculateLatencyService.calculate(graph, Trace.parse("A-B-A-C"));
