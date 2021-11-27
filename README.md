@@ -1,6 +1,6 @@
 # Build and Run
 
-I chose to use Java-16 language features (records), so you will at least need.
+I chose to use Java-16 language features (records), so you will at least need that JRE.
 
 ## Get the assignment.jar
 
@@ -18,7 +18,7 @@ That created the jar file `target/assignment.jar`.
 
 That jar file accepts a path to the CSV file with the graph specification:
 
-    $ java -jar assignment.jar $GRAPH-CSV-FILE
+    $ java -jar assignment.jar <PATH>
 
 ## Example
 
