@@ -4,55 +4,48 @@ import static java.util.Comparator.comparing;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import de.malkusch.instanaassignment.model.CalculateLatencyService;
 import de.malkusch.instanaassignment.model.FindShortestTraceService;
 import de.malkusch.instanaassignment.model.NoSuchTraceException;
 import de.malkusch.instanaassignment.model.Service;
 import de.malkusch.instanaassignment.model.Trace;
+import de.malkusch.instanaassignment.model.graph.Edge;
 import de.malkusch.instanaassignment.model.graph.Graph;
+import de.malkusch.instanaassignment.model.graph.Graph.Factory;
 
 public final class DijkstraFindShortestTraceService implements FindShortestTraceService {
 
     private static final int INFINITY = Integer.MAX_VALUE;
     private static final Service UNDEFINED = null;
 
-    private final CalculateLatencyService calculateLatencyService;
+    private final Factory graphFactory;
 
-    public DijkstraFindShortestTraceService(CalculateLatencyService calculateLatencyService) {
-        this.calculateLatencyService = requireNonNull(calculateLatencyService);
+    public DijkstraFindShortestTraceService(Factory graphFactory) {
+        this.graphFactory = requireNonNull(graphFactory);
     }
+
+    private static final Service START = new Service("Start");
 
     @Override
     public Trace find(Graph graph, Service start, Service end) throws NoSuchTraceException {
-        if (start.equals(end)) {
-            var neighbors = graph.edges(start);
-            var candidates = new ArrayList<Trace>();
-            for (var neighbor : neighbors) {
-                try {
-                    var partialCandidate = shortestPath(graph, neighbor.to(), end);
-                    var candidate = partialCandidate.prepend(start);
-                    candidates.add(candidate);
-
-                } catch (NoSuchTraceException e) {
-                    continue;
-                }
-            }
-            return shortest(graph, candidates);
-
-        } else {
-            return shortestPath(graph, start, end);
+        // Insert a helper node with identical edges as start, to support traces where
+        // start and end are identical
+        var helperStartEdges = graph.edges(start).stream().map(it -> new Edge(START, it.to(), it.weight())).toList();
+        if (helperStartEdges.isEmpty()) {
+            throw new NoSuchTraceException("No trace from " + start + " to " + end);
         }
-    }
+        var edges = new ArrayList<>(helperStartEdges);
+        edges.addAll(graph.edges());
+        var graphWithStartNode = graphFactory.build(edges);
+        if (graphWithStartNode.edges(START).isEmpty()) {
+            throw new NoSuchTraceException("No trace from " + start + " to " + end);
+        }
 
-    private Trace shortest(Graph graph, Collection<Trace> traces) throws NoSuchTraceException {
-        return traces.stream().min(Comparator.comparing(it -> calculateLatencyService.calculate(graph, it).value()))
-                .orElseThrow(() -> new NoSuchTraceException("No shortes trace"));
+        var shortest = shortestPath(graphWithStartNode, START, end);
+        return shortest.replaceFirst(start);
     }
 
     private Trace shortestPath(Graph graph, Service start, Service end) throws NoSuchTraceException {

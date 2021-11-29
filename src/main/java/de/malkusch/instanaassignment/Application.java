@@ -46,12 +46,12 @@ public final class Application {
     public static void main(String[] args) throws IOException {
         Application app;
         {
-            var calculateLatencyService = new IterativeCalculateLatencyService();
-            var findShortestTraceService = new DijkstraFindShortestTraceService(calculateLatencyService);
             var linearAlgebra = new EjmlLinearAlgebra();
+            var graphFactory = new Factory(linearAlgebra);
+            var calculateLatencyService = new IterativeCalculateLatencyService();
+            var findShortestTraceService = new DijkstraFindShortestTraceService(graphFactory);
             var countTracesByHopsService = new VectorizedCountTracesByHopsService(linearAlgebra);
             var countTracesWithinLatencyService = new DfsCountTracesByHopsService();
-            var graphFactory = new Factory(linearAlgebra);
             var graphFileFactory = new GraphFileFactory(graphFactory);
 
             String filePath = null;

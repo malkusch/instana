@@ -1,9 +1,12 @@
 package de.malkusch.instanaassignment.model.graph;
 
+import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,8 +31,12 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
         }
 
         public Graph build(Edge... edges) {
+            return build(asList(edges));
+        }
+
+        public Graph build(Collection<Edge> edges) {
             var serviceMap = new HashMap<Service, Integer>();
-            var distinctServices = new HashSet<>(stream(edges).flatMap(it -> Stream.of(it.from(), it.to())).toList());
+            var distinctServices = new HashSet<>(edges.stream().flatMap(it -> Stream.of(it.from(), it.to())).toList());
             var indexMap = new Service[distinctServices.size() + 1];
             var index = 1;
             for (var service : distinctServices) {
@@ -80,6 +87,10 @@ public record Graph(Matrix adjacencyMatrix, Matrix unweightedAdjacencyMatrix, Ma
             }
         }
         return neighbors;
+    }
+
+    public Set<Edge> edges() {
+        return services().stream().flatMap(it -> edges(it).stream()).collect(toSet());
     }
 
     @Override

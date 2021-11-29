@@ -31,6 +31,13 @@ public record Trace(List<Service> services) {
         return new Trace(prepended);
     }
 
+    public Trace replaceFirst(Service service) {
+        var replaced = new LinkedList<>(services());
+        replaced.removeFirst();
+        replaced.addFirst(service);
+        return new Trace(replaced);
+    }
+
     @Override
     public String toString() {
         return services.stream().map(Service::toString).reduce((a, b) -> a + "-" + b).get();
