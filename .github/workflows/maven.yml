@@ -35,7 +35,7 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
       - name: Restore target
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
             name: target
             path: target
@@ -52,7 +52,7 @@ jobs:
           java-version: '16'
           distribution: 'adopt'
       - name: Restore artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
             name: assignment.jar
       - name: Run jar
@@ -63,7 +63,7 @@ jobs:
     needs: [test, run-jar]
     steps:
       - name: Restore artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
             name: assignment.jar
       - name: Release
